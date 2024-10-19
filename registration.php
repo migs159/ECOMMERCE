@@ -1,5 +1,14 @@
 <?php
+    session_start();
     require_once("includes\header.php");
+
+    if(isset($_SESSION["error"])){
+        $messageErr = $_SESSION["error"];
+        unset($_SESSION["error"]);
+    }
+    if(isset($_SESSION["success"]))
+        $messageSucc = $_SESSION["success"];
+        unset($_SESSION["success"]);
 
 ?>
 
@@ -18,29 +27,29 @@
                         <h4>Create Your Account</h4>
                     </div>
                     <div class="card-body">
-                    <?php if(isset($_GET["success"])){ ?>
+                    <?php if(isset($message["success"])){ ?>
                   
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong><?php echo $_GET["success"]; ?></strong> You should check in on some of those fields below.
+                    <strong><?php echo $message["success"]; ?></strong> You should check in on some of those fields below.
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     <?php } ?>
-                    <?php if(isset($_GET["error"])){ ?>
-                  
+
+                  <?php if(isset($message)){ ?>
                   <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                  <strong><?php echo $_GET["error"]; ?></strong> You should check in on some of those fields below.
+                  <strong><?php echo $_SESSION["error"]; ?></strong> You should check in on some of those fields below.
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                   </div>
                   <?php } ?>
                         
-                        <form action="authRegister.php" method="POST">
+                        <form action="app/auth/register.php" method="POST">
                             <div class="mb-3">
                                 <label for="fullName" class="form-label">Full Name</label>
                                 <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Enter your full name" required>
                             </div>
                             <div class="mb-3">
-                                <label for="email" class="form-label">Email Address</label>
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+                                <label for="username" class="form-label">Email Address</label>
+                                <input type="text" class="form-control" id="username" name="username" placeholder="Enter your email" required>
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
